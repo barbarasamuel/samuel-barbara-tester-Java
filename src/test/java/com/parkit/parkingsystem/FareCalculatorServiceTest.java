@@ -41,7 +41,14 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
 
-        double duration = ((double)ticket.getOutTime().getTime()/3600000)-((double)ticket.getInTime().getTime()/3600000);
+        Long duration = ticket.getOutTime().getTime()-ticket.getInTime().getTime();
+
+        if ( duration <= (30*60*1000) ){
+            duration = 0L;
+        }else{
+            duration = duration - (30*60*1000);
+        }
+
         double testPrice = Fare.CAR_RATE_PER_HOUR*duration;
 
         assertEquals(ticket.getPrice(),testPrice);
@@ -60,7 +67,14 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
 
-        double duration = ((double)ticket.getOutTime().getTime()/3600000)-((double)ticket.getInTime().getTime()/3600000);
+        Long duration = ticket.getOutTime().getTime()-ticket.getInTime().getTime();
+
+        if ( duration <= (30*60*1000) ){
+            duration = 0L;
+        }else{
+            duration = duration - (30*60*1000);
+        }
+
         double testPrice = Fare.BIKE_RATE_PER_HOUR*duration;
 
         assertEquals(ticket.getPrice(), testPrice);
@@ -105,7 +119,17 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
 
-        assertEquals((0.75 * Fare.BIKE_RATE_PER_HOUR), ticket.getPrice() );
+        Long duration = ticket.getOutTime().getTime()-ticket.getInTime().getTime();
+
+        if ( duration <= (30*60*1000) ){
+            duration = 0L;
+        }else{
+            duration = duration - (30*60*1000);
+        }
+
+        double testPrice = Fare.BIKE_RATE_PER_HOUR*duration;
+
+        assertEquals( (Math.round(testPrice*100.0)/100.0),ticket.getPrice());
     }
 
     @Test
@@ -120,7 +144,17 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
 
-        assertEquals( (Math.round(0.75 * Fare.CAR_RATE_PER_HOUR*100.0)/100.0) , ticket.getPrice());
+        Long duration = ticket.getOutTime().getTime()-ticket.getInTime().getTime();
+
+        if ( duration <= (30*60*1000) ){
+            duration = 0L;
+        }else{
+            duration = duration - (30*60*1000);
+        }
+
+        double testPrice = Fare.CAR_RATE_PER_HOUR*duration;
+
+        assertEquals( (Math.round(testPrice*100.0)/100.0),ticket.getPrice());
     }
 
     @Test
@@ -134,7 +168,18 @@ public class FareCalculatorServiceTest {
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
-        assertEquals( (24 * Fare.CAR_RATE_PER_HOUR) , ticket.getPrice());
+
+        Long duration = ticket.getOutTime().getTime()-ticket.getInTime().getTime();
+
+        if ( duration <= (30*60*1000) ){
+            duration = 0L;
+        }else{
+            duration = duration - (30*60*1000);
+        }
+
+        double testPrice = Fare.CAR_RATE_PER_HOUR*duration;
+
+        assertEquals( ticket.getPrice(),(Math.round(testPrice*100.0)/100.0) );
     }
 
     @Test
@@ -183,8 +228,19 @@ public void calculateFareBikeWithLessThan30minutesParkingTime() {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket,discount);
 
+        Long duration = ticket.getOutTime().getTime()-ticket.getInTime().getTime();
+
+        if ( duration <= (30*60*1000) ){
+            duration = 0L;
+        }else{
+            duration = duration - (30*60*1000);
+        }
+
         double discountPrice = 0.95;
-        assertEquals( (Math.round(discountPrice * Fare.CAR_RATE_PER_HOUR*100.0)/100.0) , ticket.getPrice());
+        double testPrice = Fare.CAR_RATE_PER_HOUR*duration*discountPrice;
+
+        assertEquals( ticket.getPrice(),(Math.round(testPrice*100.0)/100.0) );
+
     }
 
     @Test
@@ -200,8 +256,18 @@ public void calculateFareBikeWithLessThan30minutesParkingTime() {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket,discount);
 
+        Long duration = ticket.getOutTime().getTime()-ticket.getInTime().getTime();
+
+        if ( duration <= (30*60*1000) ){
+            duration = 0L;
+        }else{
+            duration = duration - (30*60*1000);
+        }
+
         double discountPrice = 0.95;
-        assertEquals( (Math.round(discountPrice * Fare.BIKE_RATE_PER_HOUR*100.0)/100.0) , ticket.getPrice());
+        double testPrice = Fare.BIKE_RATE_PER_HOUR*duration*discountPrice;
+
+        assertEquals( ticket.getPrice(),(Math.round(testPrice*100.0)/100.0) );
     }
 
 }

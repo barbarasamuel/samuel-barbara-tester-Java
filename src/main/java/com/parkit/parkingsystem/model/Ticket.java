@@ -3,8 +3,6 @@ package com.parkit.parkingsystem.model;
 import java.util.Calendar;
 import java.util.Date;
 
-import static java.lang.Math.round;
-
 public class Ticket {
     private int id;
     private ParkingSpot parkingSpot;
@@ -42,8 +40,7 @@ public class Ticket {
     }
 
     public void setPrice(double price) {
-        //avec prix arrondi à deux decimales
-        this.price = Math.round(price*100.0)/100.0;
+        this.price = price;
     }
 
     public Date getInTime() {
