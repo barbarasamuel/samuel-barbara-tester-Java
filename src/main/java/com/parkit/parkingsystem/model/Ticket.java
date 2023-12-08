@@ -12,7 +12,7 @@ public class Ticket {
     private double price;
     private Date inTime;
     private Date outTime;
-
+    private boolean discountTicket;
     public int getId() {
         return id;
     }

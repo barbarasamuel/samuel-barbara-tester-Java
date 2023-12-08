@@ -168,4 +168,40 @@ public void calculateFareBikeWithLessThan30minutesParkingTime() {
     int freePrice = 0;
     assertEquals((29 * freePrice), ticket.getPrice());
     }
+
+
+    @Test
+    public void calculateFareCarWithDiscount(){
+        boolean discount = true;
+        Date inTime = new Date();
+        inTime.setTime( System.currentTimeMillis() - (  60 * 60 * 1000) );//45 minutes parking time should give 3/4th parking fare
+        Date outTime = new Date();
+        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR,false);
+
+        ticket.setInTime(inTime);
+        ticket.setOutTime(outTime);
+        ticket.setParkingSpot(parkingSpot);
+        fareCalculatorService.calculateFare(ticket,discount);
+
+        double discountPrice = 0.95;
+        assertEquals( (Math.round(discountPrice * Fare.CAR_RATE_PER_HOUR*100.0)/100.0) , ticket.getPrice());
+    }
+
+    @Test
+    public void calculateFareBikeWithDiscount(){
+        boolean discount = true;
+        Date inTime = new Date();
+        inTime.setTime( System.currentTimeMillis() - (  60 * 60 * 1000) );//45 minutes parking time should give 3/4th parking fare
+        Date outTime = new Date();
+        ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE,false);
+
+        ticket.setInTime(inTime);
+        ticket.setOutTime(outTime);
+        ticket.setParkingSpot(parkingSpot);
+        fareCalculatorService.calculateFare(ticket,discount);
+
+        double discountPrice = 0.95;
+        assertEquals( (Math.round(discountPrice * Fare.BIKE_RATE_PER_HOUR*100.0)/100.0) , ticket.getPrice());
+    }
+
 }
