@@ -21,6 +21,9 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unitary tests with Mockito made to verify methods ans exceptions' ParkingService class
+ */
 @ExtendWith(MockitoExtension.class)
 public class ParkingServiceTest {
     @InjectMocks

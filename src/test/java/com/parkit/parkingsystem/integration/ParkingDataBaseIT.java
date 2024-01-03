@@ -26,6 +26,9 @@ import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+/**
+ * Integration tests to verify the database functions with the ParkingService class
+ */
 @ExtendWith(MockitoExtension.class)
 public class ParkingDataBaseIT {
 

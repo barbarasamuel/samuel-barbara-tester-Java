@@ -14,6 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 
+/**
+ * Unitary tests made to verify the functionalities' FareCalculatorService class
+ */
 public class FareCalculatorServiceTest {
 
     private static FareCalculatorService fareCalculatorService;
